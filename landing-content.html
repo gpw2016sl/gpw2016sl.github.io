@@ -1,0 +1,59 @@
+<link rel="import" href="agenda-item.html">
+<link rel="import" href="bower_components/app-route/app-location.html">
+<link rel="import" href="bower_components/app-route/app-route.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="agenda-item.html">
+
+<dom-module id="landing-content">
+    <template>
+        <style>
+            div.landing-container {
+                text-align: center;
+            }
+            p {
+                color: white;
+                font-size : 14px;
+            }
+            paper-button.whitish {
+                background-color: #ffe025;
+            }
+            h1, h2 {
+                color: white;
+            }
+        </style>
+        <app-location use-hash-as-path route="{{route}}"></app-location>
+
+        <!-- Two routes, one for the home page, and one for the tabs page. -->
+        <app-route route="{{route}}" pattern="/" active="{{homeActive}}"></app-route>
+        <div hidden="{{!homeActive}}" class="landing-container">
+            <h1>Great Place to Work&reg; Sri Lanka</h1>
+            <h2>Conference 2016</h2>
+            <img src="images/logo.png" alt="logo">
+            <p>The annual Great Place to Work ® Conference is our premier event, where over 300 professionals convene to network and learn from leaders at recognized Best Workplaces. Our goal is to highlight and partner with organizations that are constantly evolving as a great workplace, featuring leaders who infuse their organizations with unique solutions and strategies to Innovate, Collaborate, Transform and maintain a High-Trust Culture.</p>
+            <paper-button raised class="custom whitish" onclick="window.location='/#/agenda/'"><iron-icon icon="date-range"></iron-icon> View Agenda</paper-button>
+        </div>
+        <div>
+
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'landing-content',
+            properties: {
+                ptopic : String,
+                testing : String,
+                clicker : Object
+            },
+            ready: function() {
+                this.async(function() {
+                    // If the path is blank, redirect to /
+                    if (!this.route.path) {
+                        this.set('route.path', '/');
+                    }
+                });
+            }
+        });
+    </script>
+</dom-module>
+
+

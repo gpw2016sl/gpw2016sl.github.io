@@ -1,0 +1,69 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
+
+<dom-module id="agenda-item">
+  <template>
+    <style>
+      paper-card.rate { @apply(--layout-horizontal); }
+      paper-card.rate {
+        margin: 5px 0px;
+      }
+      .rate-image {
+        width: 100px;
+        height: 170px;
+        background: url('images/avatar.png');
+        background-size: cover;
+      }
+      .rate-content {
+        @apply(--layout-flex);
+        float: left;
+      }
+      .rate-header {
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: -.012em;
+        line-height: 21px;
+      }
+      .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
+    </style>
+    <paper-card class="rate">
+      <div class="rate-content">
+        <div class="card-content">
+          <div class="rate-header" id="[[testing]]"><span>[[ptopic]]</span></div>
+          <div class="rate-name">Nitin Bawankule</div>
+          <div>Director Google India</div>
+        </div>
+        <div class="card-actions">
+          <paper-icon-button icon="icons:event"></paper-icon-button>
+          <paper-button>9:30AM-10:30AM</paper-button>
+        </div>
+      </div>
+      <div class="rate-image"></div>
+    </paper-card>
+  </template>
+  <script>
+    Polymer({
+      is: 'agenda-item',
+      properties: {
+        ptopic : String,
+        testing : String,
+        clicker : Object
+      }
+
+
+    });
+  </script>
+</dom-module>
+
+

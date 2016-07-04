@@ -1,0 +1,59 @@
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/app-route/app-location.html">
+<link rel="import" href="bower_components/app-route/app-route.html">
+
+<dom-module id="speaker-profile">
+    <template>
+        <app-location use-hash-as-path route="{{route}}"></app-location>
+
+        <!-- Two routes, one for the home page, and one for the tabs page. -->
+        <app-route route="{{route}}" pattern="/profile/:id" active="{{profileActive}}" data="{{profileData}}"></app-route>
+        <style is="custom-style">
+            .cafe-header { @apply(--paper-font-headline); }
+            .cafe-light { color: var(--paper-grey-600); }
+            .cafe-location {
+                float: right;
+                font-size: 15px;
+                vertical-align: middle;
+            }
+            .cafe-reserve {
+                color: white;
+                background-color: #C20D10;
+            }
+            iron-icon.star {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: var(--paper-amber-500);
+            }
+            iron-icon.star:last-of-type { color: var(--paper-grey-500); }
+        </style>
+        <paper-card image="images/bawankule.jpg" hidden="{{!profileActive}}">
+            <div class="card-content">
+                <div class="cafe-header">Nitin Bawankule
+                    <div class="cafe-location cafe-light">
+                        <paper-button class="cafe-reserve" onclick="window.location='/#/feedback/1'"><iron-icon icon="check"></iron-icon>Feedback</paper-button>
+                    </div>
+                </div>
+                <div class="cafe-rating">
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                </div>
+                <p>Innovation in driving productivity</p>
+                <p class="cafe-light">Nitin Bawankule is Industry Director for Google India. He works closely with Ecommerce, Retail, Online Classifieds (Real Estate, Matrimonial, Local and Jobs), Technology, and Education players to grow the Indian Online Ecosystem and scale their businesses through Digital Marketing in the Internet era. Nitin is a seasoned Sales and General Management veteran with over 20 years of experience in the Consumer and IT industry spanning Consumer Electronics, Telecom, and IT. Prior to Google, he was Director in Dell for Asia Pacific Japan Region, managing Software and Peripherals portfolio. He has also been the Director for Inside Sales for Dell India. Nitin has also worked in Motorola and Whirlpool and GodrejGE Appliances. Nitin has done Post Graduate Diploma in Management from IIM Bangalore and has a Bachelor of Engineering (B.E) in Electronics from VNIT Nagpur.</p>
+            </div>
+        </paper-card>
+    </template>
+    <script>
+        Polymer({
+            is: 'speaker-profile',
+
+        });
+    </script>
+</dom-module>

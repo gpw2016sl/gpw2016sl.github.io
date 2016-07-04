@@ -1,0 +1,39 @@
+<link rel="import" href="agenda-item.html">
+<link rel="import" href="bower_components/app-route/app-location.html">
+<link rel="import" href="bower_components/app-route/app-route.html">
+<link rel="import" href="agenda-item.html">
+
+<dom-module id="agenda-list">
+    <template>
+        <app-location use-hash-as-path route="{{route}}"></app-location>
+
+        <!-- Two routes, one for the home page, and one for the tabs page. -->
+
+        <app-route route="{{route}}" pattern="/agenda" active="{{agendaActive}}"></app-route>
+        <agenda-item ptopic="Topic" hidden$="{{!agendaActive}}"></agenda-item>
+        <agenda-item ptopic="Topic" hidden$="{{!agendaActive}}"></agenda-item>
+        <agenda-item ptopic="Topic" hidden$="{{!agendaActive}}"></agenda-item>
+        <agenda-item ptopic="Topic" hidden$="{{!agendaActive}}"></agenda-item>
+        <agenda-item ptopic="Topic" hidden$="{{!agendaActive}}"></agenda-item>
+    </template>
+    <script>
+        Polymer({
+            is: 'agenda-list',
+            properties: {
+                ptopic : String,
+                testing : String,
+                clicker : Object
+            },
+            ready: function() {
+                this.async(function() {
+                    // If the path is blank, redirect to /
+                    if (!this.route.path) {
+                        this.set('route.path', '/');
+                    }
+                });
+            }
+        });
+    </script>
+</dom-module>
+
+

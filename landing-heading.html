@@ -1,0 +1,46 @@
+<link rel="import" href="agenda-item.html">
+<link rel="import" href="bower_components/app-route/app-location.html">
+<link rel="import" href="bower_components/app-route/app-route.html">
+<link rel="import" href="agenda-item.html">
+
+<dom-module id="landing-heading">
+    <template>
+        <style>
+            .maintitle {
+                font-size: 20px;
+            }
+            .subheading {
+                font-size: 16px;
+            }
+        </style>
+        <app-location use-hash-as-path route="{{route}}"></app-location>
+
+        <!-- Two routes, one for the home page, and one for the tabs page. -->
+        <app-route route="{{route}}" pattern="/" active="{{homeActive}}"></app-route>
+        <div hidden="{{!homeActive}}">
+            <div class="maintitle">Great Place to Work&reg; Sri Lanka</div>
+            <div class="subheading">Conference 2016</div>
+        </div>
+
+    </template>
+    <script>
+        Polymer({
+            is: 'landing-heading',
+            properties: {
+                ptopic : String,
+                testing : String,
+                clicker : Object
+            },
+            ready: function() {
+                this.async(function() {
+                    // If the path is blank, redirect to /
+                    if (!this.route.path) {
+                        this.set('route.path', '/');
+                    }
+                });
+            }
+        });
+    </script>
+</dom-module>
+
+

@@ -1,0 +1,70 @@
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/app-route/app-location.html">
+<link rel="import" href="bower_components/app-route/app-route.html">
+<link rel="import" href="bower_components/star-rating/star-rating.html">
+
+<dom-module id="speaker-feedback">
+    <template>
+        <app-location use-hash-as-path route="{{route}}"></app-location>
+
+        <!-- Two routes, one for the home page, and one for the tabs page. -->
+        <app-route route="{{route}}" pattern="/feedback/:id" active="{{feedbackActive}}" data="{{profileData}}"></app-route>
+        <style is="custom-style">
+            .cafe-header { @apply(--paper-font-headline); }
+            .cafe-light { color: var(--paper-grey-600); }
+            .cafe-location {
+                float: right;
+                font-size: 15px;
+                vertical-align: middle;
+            }
+            .cafe-reserve {
+                color: white;
+                background-color: #C20D10;
+            }
+            iron-icon.star {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: var(--paper-amber-500);
+            }
+            iron-icon.star:last-of-type { color: var(--paper-grey-500); }
+            paper-card {
+                display: block;
+            }
+        </style>
+        <paper-card image="images/bawankule.jpg" hidden="{{!feedbackActive}}">
+            <div class="card-content">
+                <div class="cafe-header">Nitin Bawankule
+                    <div class="cafe-location cafe-light">
+                    </div>
+                </div>
+                <div class="cafe-rating">
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                    <iron-icon class="star" icon="star"></iron-icon>
+                </div>
+                <p>Innovation in driving productivity</p>
+                <star-rating></star-rating>
+                <star-rating></star-rating>
+                <star-rating></star-rating>
+                <paper-textarea label="Comments" rows="3"></paper-textarea>
+            </div>
+            <div class="card-actions">
+                <paper-button class="cafe-reserve"><iron-icon icon="check" onclick="window.history.back()"></iron-icon> Submit</paper-button>
+                <paper-button class="cafe-reserve"><iron-icon icon="cancel" onclick="window.history.back()"></iron-icon> Cancel</paper-button>
+            </div>
+        </paper-card>
+    </template>
+    <script>
+        Polymer({
+            is: 'speaker-feedback',
+
+        });
+    </script>
+</dom-module>
