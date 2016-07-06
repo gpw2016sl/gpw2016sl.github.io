@@ -126,8 +126,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-toolbar class="custom">
         <paper-icon-button icon="arrow-back" onclick="window.history.back()"></paper-icon-button>
         <div class="spacer"></div>
-        <paper-icon-button icon="home" onclick="window.location='https://yasiru.me/projects/gpw2016/#/'"></paper-icon-button>
-        <paper-button id="nowPresenting" onclick="window.location='https://yasiru.me/projects/gpw2016/#/profile/1'"><iron-icon icon="av:play-arrow"></iron-icon>NOW</paper-button>
+        <paper-icon-button icon="home" onclick="window.location='hhttps://gpw2016sl.github.io/#/'"></paper-icon-button>
+        <paper-button id="nowPresenting" onclick="window.location='https://gpw2016sl.github.io/#/profile/1'"><iron-icon icon="av:play-arrow"></iron-icon>NOW</paper-button>
     </paper-toolbar>
 
     <div class="content">
@@ -141,6 +141,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </paper-scroll-header-panel>
 
 <script>
+    if(window.location.hash.trim() == "") {
+        //redirect to hash home page
+        window.location.hash == "/";
+    }
     window.addEventListener('WebComponentsReady', function(e) {
 
         console.log(document.getElementById('nowPresenting'));
