@@ -54,7 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
         <div class="card-actions">
           <paper-button raised><iron-icon icon="event"></iron-icon> [[_convertTime(item.startTime)]]-[[_convertTime(item.endTime)]]</paper-button>
-          <paper-button raised class="custom" on-click="gotoFeedback"><iron-icon icon="check" style="float: left;"></iron-icon> Feedback</paper-button>
+          <paper-button hidden="[[!item.feedback]]" raised class="custom" on-click="gotoFeedback"><iron-icon icon="check" style="float: left;"></iron-icon> Feedback</paper-button>
         </div>
       </div>
     </paper-card>
