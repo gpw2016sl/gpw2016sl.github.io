@@ -130,9 +130,10 @@
                         rating : drating
                     };
                     toast.open();
+                    window.history.back();
                     ironAjax.response = function() {
-                        window.history.back();
-                    }
+
+                    };
                     ironAjax.generateRequest();
                 }
             });
