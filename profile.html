@@ -31,22 +31,15 @@
             }
             iron-icon.star:last-of-type { color: var(--paper-grey-500); }
         </style>
-        <paper-card image="images/bawankule.jpg" hidden="{{!profileActive}}">
+        <paper-card image="images/nitin.png" hidden="{{!profileActive}}">
             <div class="card-content">
                 <div class="cafe-header">Nitin Bawankule
                     <div class="cafe-location cafe-light">
-                        <paper-button class="cafe-reserve" onclick="window.location='https://gpw2016sl.github.io/#/feedback/1'"><iron-icon icon="check"></iron-icon>Feedback</paper-button>
+                        <!--<paper-button class="cafe-reserve" onclick="window.location='https://gpw2016sl.github.io/#/feedback/1'"><iron-icon icon="check"></iron-icon>Feedback</paper-button>-->
                     </div>
                 </div>
-                <div class="cafe-rating">
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                </div>
                 <p>Innovation in driving productivity</p>
-                <p class="cafe-light">Nitin Bawankule is Industry Director for Google India. He works closely with Ecommerce, Retail, Online Classifieds (Real Estate, Matrimonial, Local and Jobs), Technology, and Education players to grow the Indian Online Ecosystem and scale their businesses through Digital Marketing in the Internet era. Nitin is a seasoned Sales and General Management veteran with over 20 years of experience in the Consumer and IT industry spanning Consumer Electronics, Telecom, and IT. Prior to Google, he was Director in Dell for Asia Pacific Japan Region, managing Software and Peripherals portfolio. He has also been the Director for Inside Sales for Dell India. Nitin has also worked in Motorola and Whirlpool and GodrejGE Appliances. Nitin has done Post Graduate Diploma in Management from IIM Bangalore and has a Bachelor of Engineering (B.E) in Electronics from VNIT Nagpur.</p>
+                <p class="cafe-light">{{}}</p>
             </div>
         </paper-card>
     </template>
@@ -56,6 +49,9 @@
             properties : {
                 agenda : Object,
                 speakers : Object
+            },
+            _getSpeaker(v) {
+
             }
         });
     </script>
