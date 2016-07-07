@@ -3,124 +3,140 @@
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/app-route/app-location.html">
 <link rel="import" href="bower_components/app-route/app-route.html">
 <link rel="import" href="bower_components/star-rating/star-rating.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+
 
 <dom-module id="speaker-feedback">
     <template>
         <app-location use-hash-as-path route="{{route}}"></app-location>
 
         <!-- Two routes, one for the home page, and one for the tabs page. -->
-        <app-route route="{{route}}" pattern="/feedback/:id" active="{{feedbackActive}}" data="{{feedbackData}}"></app-route>
+        <app-route id="approute" route="{{route}}" pattern="/feedback/:id" active="{{feedbackActive}}"
+                   data="{{feedbackData}}"></app-route>
         <style is="custom-style">
-            .cafe-header { @apply(--paper-font-headline); }
-            .cafe-light { color: var(--paper-grey-600); }
+            .cafe-header {
+                @apply(--paper-font-headline);
+            }
+
+            .cafe-light {
+                color: var(--paper-grey-600);
+            }
+
             .cafe-location {
                 float: right;
                 font-size: 15px;
                 vertical-align: middle;
             }
+
             .cafe-reserve {
                 color: white;
                 background-color: #C20D10;
             }
+
             iron-icon.star {
                 --iron-icon-width: 16px;
                 --iron-icon-height: 16px;
                 color: var(--paper-amber-500);
             }
-            iron-icon.star:last-of-type { color: var(--paper-grey-500); }
+
+            iron-icon.star:last-of-type {
+                color: var(--paper-grey-500);
+            }
+
             paper-card {
                 display: block;
             }
         </style>
+        <iron-ajax id="poster"
+                   content-type="application/x-www-form-urlencoded"
+                   url="https://script.google.com/macros/s/AKfycbyiBOzdukZ4v29hU041TfhTZWpf2IPHf05rNWz6NgITWknSueIc/exec"
+                   method="POST" last-response="{{data}}"></iron-ajax>
         <paper-card image="images/bawankule.jpg" hidden="{{!feedbackActive}}">
             <div class="card-content">
                 <div class="cafe-header" id="speechtopic">
                     {{_getSpeechTitle(feedbackData.id)}}
                 </div>
                 <p id="speaker">{{_getSpeakerNames(feedbackData.id)}}</p>
-                <star-rating></star-rating>
-                <star-rating></star-rating>
-                <star-rating></star-rating>
-                <paper-textarea label="Comments" rows="3"></paper-textarea>
+                <paper-textarea id="comments" label="Comments" rows="3"></paper-textarea>
+                <div>
+                    <star-rating id="rating" style="text-align: left"></star-rating>
+                </div>
             </div>
             <div class="card-actions">
-                <paper-button class="cafe-reserve"><iron-icon icon="check" onclick="window.history.back()"></iron-icon> Submit</paper-button>
-                <paper-button class="cafe-reserve"><iron-icon icon="cancel" onclick="window.history.back()"></iron-icon> Cancel</paper-button>
+                <paper-button class="cafe-reserve" on-click="_submitFeedBack">
+                    <iron-icon icon="check"></iron-icon>
+                    Submit
+                </paper-button>
+                <paper-button class="cafe-reserve" onclick="window.history.back()">
+                    <iron-icon icon="cancel"></iron-icon>
+                    Cancel
+                </paper-button>
             </div>
         </paper-card>
+        <paper-toast id="toast0" text="Thank you! Submitting Feedback."></paper-toast>
     </template>
 
     <script>
-        (function() {
+        (function () {
 
-            var SpeechArray = [{
-                "speechTitle": "The Business Case for Creating a Great Workplace by Google",
-                "startTime": "",
-                "endTime": ""
-            }, {
-                "speechTitle": "Emerging Practices of Gamification in transforming Employee Experience by KNOLSKAPE",
-                "startTime": "",
-                "endTime": ""
-            }, {
-                "speechTitle": "Reinventing HR using disruptive practices By Harvard Business Publishing",
-                "startTime": "",
-                "endTime": ""
-            }, {
-                "speechTitle": "Best Workplaces lists - busting the myths By Great Place to Work ®",
-                "startTime": "",
-                "endTime": ""
-            }, {
-                "speechTitle": "Innovation in driving productivity By Dialog Axiata",
-                "startTime": "",
-                "endTime": ""
-            }, {
-                "speechTitle": "Local Case Study : The Multi National Approach to creating a local Great Work Place By DHL",
-                "startTime": "",
-                "endTime": ""
-            }, {
-                "speechTitle": "Thought Leadership : The Great Workplace of the Future By Great Place to Work® India",
-                "startTime": "",
-                "endTime": ""
-            }];
             Polymer({
                 is: 'speaker-feedback',
-                properties : {
-                    agenda : Object,
-                    speakers : Object
+                properties: {
+                    agenda: Object,
+                    speakers: Object
                 },
-                ready : function() {
+                ready: function () {
                     var temp = this.route.path.split("/");
-                    var id = temp[temp.length-1];
+                    var id = temp[temp.length - 1];
                     console.log("fb id " + id);
 
                     console.log(this);
                     console.log(this.$);
                 },
-                _getSpeechTitle(v) {
-                    if(typeof this.agenda != 'undefined') {
-                        if(typeof this.agenda.length === 'number') {
-                            if(this.agenda.length > v) {
+                _getSpeechTitle: function (v) {
+                    if (typeof this.agenda != 'undefined') {
+                        if (typeof this.agenda.length === 'number') {
+                            if (this.agenda.length > v) {
                                 return this.agenda[v].speechTitle;
                             }
                         }
                     }
 
                 },
-                _getSpeakerNames(v) {
-                    if(typeof this.agenda != 'undefined') {
-                        if(typeof this.agenda.length === 'number') {
-                            if(this.agenda.length > v) {
+                _getSpeakerNames: function (v) {
+                    if (typeof this.agenda != 'undefined') {
+                        if (typeof this.agenda.length === 'number') {
+                            if (this.agenda.length > v) {
                                 return this.agenda[v].speakers;
                             }
                         }
                     }
+                },
+                _submitFeedBack : function (v) {
+                    var comments = this.$.comments.value;
+                    var drating = this.$.rating.rate;
+                    var ironAjax = this.$.poster;
+                    var id = this.$.approute.data.id;
+                    var toast = this.$.toast0;
 
+                    ironAjax.body = {
+                        speaker : id,
+                        comment : comments,
+                        rating : drating
+                    };
+                    toast.open();
+                    ironAjax.response = function() {
+                        window.history.back();
+                    }
+                    ironAjax.generateRequest();
                 }
             });
+
         })()
     </script>
 </dom-module>
