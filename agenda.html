@@ -10,7 +10,7 @@
         <app-route route="{{route}}" pattern="/agenda" active="{{agendaActive}}"></app-route>
         <div hidden="{{!agendaActive}}">
             <template is="dom-repeat" items="[[agenda]]">
-                <agenda-item item="{{item}}"></agenda-item>
+                <agenda-item item="{{item}}" speakers="[[speakers]]"></agenda-item>
             </template>
         </div>
     </template>

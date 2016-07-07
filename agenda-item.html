@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="speaker-link.html">
 
 
 <dom-module id="agenda-item">
@@ -49,8 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="rate-content">
         <div class="card-content">
           <div class="rate-header"><span>[[item.speechTitle]]</span></div>
-          <div class="rate-name">[[item.speakers]]</div>
-
+          <div class="rate-name"><speaker-link speakers="[[item.speakers]]" speakerpool="[[speakers]]"></speaker-link></div>
         </div>
         <div class="card-actions">
           <paper-button raised><iron-icon icon="event"></iron-icon> [[_convertTime(item.startTime)]]-[[_convertTime(item.endTime)]]</paper-button>
@@ -63,7 +63,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'agenda-item',
       properties: {
-        item : Object
+        item : Object,
+        speakers : Object
       },
       _convertTime : function(time) {
         if(typeof time === 'string')

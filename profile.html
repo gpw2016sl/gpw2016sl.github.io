@@ -31,28 +31,60 @@
             }
             iron-icon.star:last-of-type { color: var(--paper-grey-500); }
         </style>
-        <paper-card image="images/nitin.png" hidden="{{!profileActive}}">
+        <paper-card image="images/{{_getSpeakerImage(profileData.id)}}" hidden="{{!profileActive}}">
             <div class="card-content">
-                <div class="cafe-header">Nitin Bawankule
+                <div class="cafe-header">{{_getSpeakerName(profileData.id)}}
                     <div class="cafe-location cafe-light">
                         <!--<paper-button class="cafe-reserve" onclick="window.location='https://gpw2016sl.github.io/#/feedback/1'"><iron-icon icon="check"></iron-icon>Feedback</paper-button>-->
                     </div>
                 </div>
-                <p>Innovation in driving productivity</p>
-                <p class="cafe-light">{{}}</p>
+                <p>{{_getSpeakerDesignation(profileData.id)}}</p>
+                <p class="cafe-light">{{_getSpeakerBrief(profileData.id)}}</p>
             </div>
         </paper-card>
     </template>
     <script>
-        Polymer({
-            is: 'speaker-profile',
-            properties : {
-                agenda : Object,
-                speakers : Object
-            },
-            _getSpeaker(v) {
+        (function () {
+            Polymer({
+                is: 'speaker-profile',
+                properties : {
+                    agenda : Object,
+                    speakers : Object
+                },
+                _getSpeakerName : function(v) {
+                    if (typeof this.speakers != 'undefined') {
+                        if (typeof this.speakers.length === 'number') {
+                            return this.speakers[v].speakerName;
+                        }
+                    }
+                    return "x";
+                },
+                _getSpeakerDesignation: function(v) {
+                    if (typeof this.speakers != 'undefined') {
+                        if (typeof this.speakers.length === 'number') {
+                            return this.speakers[v].designation;
+                        }
+                    }
+                    return "x";
+                },
+                _getSpeakerBrief: function(v) {
+                    if (typeof this.speakers != 'undefined') {
+                        if (typeof this.speakers.length === 'number') {
+                            return this.speakers[v].brief;
+                        }
+                    }
+                    return "x";
+                },
+                _getSpeakerImage: function(v) {
+                    if (typeof this.speakers != 'undefined') {
+                        if (typeof this.speakers.length === 'number') {
+                            return this.speakers[v].image;
+                        }
+                    }
+                    return "x";
+                }
+            });
+        })();
 
-            }
-        });
     </script>
 </dom-module>

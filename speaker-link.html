@@ -1,0 +1,59 @@
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/app-route/app-location.html">
+<link rel="import" href="bower_components/app-route/app-route.html">
+
+<dom-module id="speaker-link">
+    <template>
+        <app-location use-hash-as-path route="{{route}}"></app-location>
+
+        <!-- Two routes, one for the home page, and one for the tabs page. -->
+        <app-route route="{{route}}" pattern="/profile/:id" active="{{profileActive}}" data="{{profileData}}"></app-route>
+        <style is="custom-style">
+            .link {
+                margin-left: 3px;
+                margin-right: 3px;
+                color: #C20D10;
+            }
+        </style>
+        <div>
+            <template is="dom-repeat" items="[[speakers]]">
+                <a href="/#/profile/{{_getSpeakerLink(item)}}" class="link">{{_getSpeakerName(item)}}</a>
+            </template>
+        </div>
+    </template>
+    <script>
+        (function () {
+            Polymer({
+                is: 'speaker-link',
+                properties : {
+                    speakerpool : Object,
+                    speakers : Object
+                },
+                _getSpeakerName : function(v) {
+                    for(var i = 0;i < this.speakerpool.length;i++) {
+                        if(this.speakerpool[i].speakerid == v) {
+                            return this.speakerpool[i].speakerName;
+                        }
+                    }
+                    return "";
+                },
+                _getSpeakerLink : function(v) {
+                    for(var i = 0;i < this.speakerpool.length;i++) {
+                        if(this.speakerpool[i].speakerid == v) {
+                            return this.speakerpool[i].id;
+                        }
+                    }
+                    return "";
+                },
+                _showSpeakers : function() {
+                    return (typeof this.speakers != 'undefined') && this.speakers.length != 0;
+                }
+            });
+        })()
+
+    </script>
+</dom-module>
