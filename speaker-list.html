@@ -1,0 +1,34 @@
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/app-route/app-location.html">
+<link rel="import" href="bower_components/app-route/app-route.html">
+<link rel="import" href="speaker-card.html">
+
+<dom-module id="speaker-list">
+    <template>
+        <app-location use-hash-as-path route="{{route}}"></app-location>
+
+        <!-- Two routes, one for the home page, and one for the tabs page. -->
+        <app-route route="{{route}}" pattern="/profiles" active="{{profileActive}}" data="{{profileData}}"></app-route>
+        <div hidden="{{!profileActive}}">
+            <template is="dom-repeat" items="[[speakers]]">
+                <speaker-card speaker="[[item]]"></speaker-card>
+            </template>
+        </div>
+
+    </template>
+</dom-module>
+    </template>
+    <script>
+        Polymer({
+            is: 'speaker-list',
+            properties : {
+                agenda : Object,
+                speakers : Object
+            }
+        });
+    </script>
+</dom-module>

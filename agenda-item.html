@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-styles/color.html">
 
+
 <dom-module id="agenda-item">
   <template>
     <style>
@@ -35,33 +36,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         letter-spacing: -.012em;
         line-height: 21px;
       }
-      .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
+      paper-button.custom {
+        background-color: #C20D10;
+        color : white;
+        position: relative;
+      }
+      .rate-name {
+        color: var(--paper-grey-600); margin: 10px 0;
+      }
     </style>
     <paper-card class="rate">
       <div class="rate-content">
         <div class="card-content">
-          <div class="rate-header" id="[[testing]]"><span>[[ptopic]]</span></div>
-          <div class="rate-name">Nitin Bawankule</div>
-          <div>Director Google India</div>
+          <div class="rate-header"><span>[[item.speechTitle]]</span></div>
+          <div class="rate-name">[[item.speakers]]</div>
+
         </div>
         <div class="card-actions">
-          <paper-icon-button icon="icons:event"></paper-icon-button>
-          <paper-button>9:30AM-10:30AM</paper-button>
+          <paper-button raised><iron-icon icon="event"></iron-icon> [[_convertTime(item.startTime)]]-[[_convertTime(item.endTime)]]</paper-button>
+        <paper-button raised class="custom"><iron-icon icon="check" style="float: left;"></iron-icon>Give Feedback</paper-button>
         </div>
       </div>
-      <div class="rate-image"></div>
     </paper-card>
   </template>
   <script>
     Polymer({
       is: 'agenda-item',
       properties: {
-        ptopic : String,
-        testing : String,
-        clicker : Object
+        item : Object
+      },
+      _convertTime : function(time) {
+        if(typeof time === 'string')
+                time = parseInt(time);
+        var h = Math.floor(time / 100);
+        var m = time % 100;
+        return ((h == 12) ? 12 : (h % 12)) + ":" + (m) + (h >= 12 ? " PM" : " AM");
       }
-
-
     });
   </script>
 </dom-module>

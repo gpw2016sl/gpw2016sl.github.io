@@ -13,7 +13,7 @@
         <app-location use-hash-as-path route="{{route}}"></app-location>
 
         <!-- Two routes, one for the home page, and one for the tabs page. -->
-        <app-route route="{{route}}" pattern="/feedback/:id" active="{{feedbackActive}}" data="{{profileData}}"></app-route>
+        <app-route route="{{route}}" pattern="/feedback/:id" active="{{feedbackActive}}" data="{{feedbackData}}"></app-route>
         <style is="custom-style">
             .cafe-header { @apply(--paper-font-headline); }
             .cafe-light { color: var(--paper-grey-600); }
@@ -38,18 +38,10 @@
         </style>
         <paper-card image="images/bawankule.jpg" hidden="{{!feedbackActive}}">
             <div class="card-content">
-                <div class="cafe-header">Nitin Bawankule
-                    <div class="cafe-location cafe-light">
-                    </div>
+                <div class="cafe-header" id="speechtopic">
+                    {{_getSpeechTitle(feedbackData.id)}}
                 </div>
-                <div class="cafe-rating">
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                    <iron-icon class="star" icon="star"></iron-icon>
-                </div>
-                <p>Innovation in driving productivity</p>
+                <p id="speaker">{{_getSpeakerNames(feedbackData.id)}}</p>
                 <star-rating></star-rating>
                 <star-rating></star-rating>
                 <star-rating></star-rating>
@@ -61,10 +53,74 @@
             </div>
         </paper-card>
     </template>
-    <script>
-        Polymer({
-            is: 'speaker-feedback',
 
-        });
+    <script>
+        (function() {
+
+            var SpeechArray = [{
+                "speechTitle": "The Business Case for Creating a Great Workplace by Google",
+                "startTime": "",
+                "endTime": ""
+            }, {
+                "speechTitle": "Emerging Practices of Gamification in transforming Employee Experience by KNOLSKAPE",
+                "startTime": "",
+                "endTime": ""
+            }, {
+                "speechTitle": "Reinventing HR using disruptive practices By Harvard Business Publishing",
+                "startTime": "",
+                "endTime": ""
+            }, {
+                "speechTitle": "Best Workplaces lists - busting the myths By Great Place to Work ®",
+                "startTime": "",
+                "endTime": ""
+            }, {
+                "speechTitle": "Innovation in driving productivity By Dialog Axiata",
+                "startTime": "",
+                "endTime": ""
+            }, {
+                "speechTitle": "Local Case Study : The Multi National Approach to creating a local Great Work Place By DHL",
+                "startTime": "",
+                "endTime": ""
+            }, {
+                "speechTitle": "Thought Leadership : The Great Workplace of the Future By Great Place to Work® India",
+                "startTime": "",
+                "endTime": ""
+            }];
+            Polymer({
+                is: 'speaker-feedback',
+                properties : {
+                    agenda : Object,
+                    speakers : Object
+                },
+                ready : function() {
+                    var temp = this.route.path.split("/");
+                    var id = temp[temp.length-1];
+                    console.log("fb id " + id);
+
+                    console.log(this);
+                    console.log(this.$);
+                },
+                _getSpeechTitle(v) {
+                    if(typeof this.agenda != 'undefined') {
+                        if(typeof this.agenda.length === 'number') {
+                            if(this.agenda.length > v) {
+                                return this.agenda[v].speechTitle;
+                            }
+                        }
+                    }
+
+                },
+                _getSpeakerNames(v) {
+                    if(typeof this.agenda != 'undefined') {
+                        if(typeof this.agenda.length === 'number') {
+                            if(this.agenda.length > v) {
+                                return this.agenda[v].speakers;
+                            }
+                        }
+                    }
+
+                }
+            });
+        })()
     </script>
 </dom-module>

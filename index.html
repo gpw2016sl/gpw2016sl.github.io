@@ -27,14 +27,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="bower_components/paper-card/paper-card.html">
     <link rel="import" href="bower_components/paper-styles/color.html">
     <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+    <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 
 
     <link rel="import" href="agenda-item.html">
-    <link rel="import" href="avatar.html">
+    <link rel="import" href="profile.html">
     <link rel="import" href="agenda.html">
     <link rel="import" href="landing-content.html">
     <link rel="import" href="landing-heading.html">
     <link rel="import" href="feedback.html">
+    <link rel="import" href="speaker-list.html">
 
     <link rel="import" href="bower_components/app-route/app-location.html">
     <link rel="import" href="bower_components/app-route/app-route.html">
@@ -117,10 +119,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 </head>
 <body unresolved>
-<app-location id="route_location"use-hash-as-path route="{{route}}"></app-location>
+
+<app-location id="route_location" use-hash-as-path route="{{route}}"></app-location>
 
 <!--<app-route route="{{route}}" pattern="/nowpresenting/" active="{{nowpresenting}}"></app-route>-->
 <!-- `keepCondensedHeader` makes the condensed header to not scroll away -->
+
 <paper-scroll-header-panel fixed>
 
     <paper-toolbar class="custom">
@@ -131,23 +135,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-toolbar>
 
     <div class="content">
-        <!--<landing-heading></landing-heading>-->
-        <landing-content></landing-content>
-        <agenda-list></agenda-list>
-        <speaker-profile></speaker-profile>
-        <speaker-feedback></speaker-feedback>
+
+        <template id="mastertemplate" is="dom-bind">
+            <iron-ajax url="https://script.google.com/macros/s/AKfycbyiBOzdukZ4v29hU041TfhTZWpf2IPHf05rNWz6NgITWknSueIc/exec" last-response="{{data}}" auto></iron-ajax>
+
+            <landing-content></landing-content>
+            <agenda-list agenda="[[data.agenda]]" speakers="[[data.speakers]]"></agenda-list>
+            <speaker-profile agenda="[[data.agenda]]" speakers="[[data.speakers]]"></speaker-profile>
+            <speaker-feedback agenda="[[data.agenda]]" speakers="[[data.speakers]]"></speaker-feedback>
+            <speaker-list speakers="[[data.speakers]]"></speaker-list>
+        </template>
+
+
+
     </div>
 
 </paper-scroll-header-panel>
-
+<script src="data.js"></script>
 <script>
     if(window.location.hash.trim() == "") {
         //redirect to hash home page
-        window.location.hash == "/";
+        window.location.assign("#/");
     }
-    window.addEventListener('WebComponentsReady', function(e) {
 
+    window.addEventListener('WebComponentsReady', function(e) {
         console.log(document.getElementById('nowPresenting'));
+
     });
     document.querySelector('agenda-item', 'click', function(e){
         console.log(e);

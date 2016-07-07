@@ -1,0 +1,70 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
+
+<dom-module id="speaker-card">
+    <template>
+        <style>
+            paper-card.rate { @apply(--layout-horizontal); }
+            paper-card.rate {
+                margin: 5px 0px;
+            }
+            .rate-image {
+                width: 100px;
+                height: 170px;
+                background-size: cover;
+            }
+            .rate-content {
+                @apply(--layout-flex);
+                float: left;
+            }
+            .rate-header {
+                font-size: 24px;
+                font-weight: 400;
+                letter-spacing: -.012em;
+                line-height: 24px;
+            }
+            .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
+            paper-button.custom {
+                background-color: #C20D10;
+                color : white;
+            }
+            div.card-actions paper-button {
+                margin-top: 25px;
+            }
+        </style>
+        <paper-card class="rate">
+            <div class="rate-content">
+                <div class="card-content">
+                    <div class="rate-header" id="[[testing]]"><span>[[speaker.speakerName]]</span></div>
+                    <div class="rate-name"></div>
+                    <div>[[speaker.designation]]</div>
+                </div>
+                <div class="card-actions">
+                    <paper-button raised class="custom"><iron-icon icon="perm-identity"></iron-icon>View Profile</paper-button>
+                </div>
+            </div>
+            <div class="rate-image" style="background: url('images/[[speakerid]].png');background-size: cover;"></div>
+        </paper-card>
+    </template>
+    <script>
+        Polymer({
+            is: 'speaker-card',
+            properties: {
+                speaker : Object
+            }
+        });
+    </script>
+</dom-module>
+
+
